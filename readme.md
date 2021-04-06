@@ -19,6 +19,7 @@ Crie um banco no MySql
 ## Laravel
 - Baixe o projeto dentro do servidor laravel Ex. laragon
 - Rode o comando "php artisan serve" para rodar o servidor
+- Rode o projeto na porta 8000
 
 ## Postman
 Para tester a API use os endpoints abaixo
@@ -27,6 +28,3 @@ Endpoints
 - email
 - image
 - password
-
-
-
