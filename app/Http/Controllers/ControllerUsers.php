@@ -27,7 +27,6 @@ class ControllerUsers extends Controller
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->password = $request->input('password');
-        $user->login = $request->input('login');
         $image = $request->file('image');
 
         if($image) {
@@ -42,9 +41,9 @@ class ControllerUsers extends Controller
 
     public function show($id)
     {
-        $cat = Users::find($id);
-        if(isset($cat)) {
-            return json_encode($cat);
+        $user = Users::find($id);
+        if(isset($user)) {
+            return response()->json($user);
         }
     }
 
@@ -60,11 +59,16 @@ class ControllerUsers extends Controller
             $user->name = $request->input('name');
             $user->email = $request->input('email');
             $user->password = $request->input('password');
-            $user->image = $request->input('image');
-            $user->login = $request->input('login');    
+            $image = $request->file('image');
+
+            if($image) {
+                $path = $image->store('image', 'public');
+                $user->image = $path;
+            } 
+
             $user->save();
             $response = Array("status" => 200, "description" => "User updated successfully");
-            return json_encode($response);
+            return response()->json($response);
         }
     }
 
@@ -75,6 +79,6 @@ class ControllerUsers extends Controller
             $user->delete();
         }
         $response = Array("status" => 200, "description" => "User removed successfully");
-        return json_encode($response);
+        return response()->json($response);
     }
 }
